@@ -1,23 +1,19 @@
-def factorial_iterative(n):
-    """
-    Calcula el factorial de un número de forma iterativa.
-    
-    """
-    if n < 0:
-        raise ValueError("El factorial no está definido para números negativos.")
-    resultado = 1
-    for i in range(1, n + 1):
-        resultado *= i
-    return resultado
+import unittest
+from src.factorial import factorial_iterative, factorial_recursive
 
+class TestFactorial(unittest.TestCase):
 
-def factorial_recursive(n):
-    """
-    Calcula el factorial de un número de forma recursiva.
-    
-    """
-    if n < 0:
-        raise ValueError("El factorial no está definido para números negativos.")
-    if n == 0 or n == 1:
-        return 1
-    return n * factorial_recursive(n - 1)
+    def test_iterative_positive(self):
+        self.assertEqual(factorial_iterative(5), 120)
+        self.assertEqual(factorial_iterative(0), 1)
+
+    def test_recursive_positive(self):
+        self.assertEqual(factorial_recursive(4), 24)
+        self.assertEqual(factorial_recursive(1), 1)
+
+    def test_negative_input(self):
+        with self.assertRaises(ValueError):
+            factorial_iterative(-1)
+        with self.assertRaises(ValueError):
+            factorial_recursive(-3)
+
